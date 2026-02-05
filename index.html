@@ -865,6 +865,10 @@
                 display: flex;
             }
 
+            .mobile-menu {
+                display: flex;
+            }
+
             .about-grid,
             .contact-grid {
                 grid-template-columns: 1fr;
@@ -1176,18 +1180,43 @@
         const mobileMenu = document.querySelector('.mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-menu a');
 
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        function closeMenu() {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openMenu() {
+            menuToggle.classList.add('active');
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (mobileMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMenu();
+            }
         });
 
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
+                closeMenu();
             });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMenu();
+            }
         });
 
         // Active nav link on scroll
