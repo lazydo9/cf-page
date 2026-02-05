@@ -417,8 +417,9 @@
         .scroll-indicator {
             position: absolute;
             bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -918,12 +919,11 @@
 
             .scroll-indicator {
                 position: absolute !important;
-                left: 50% !important;
-                right: auto !important;
-                transform: translateX(-50%) !important;
-                transform-origin: center center;
+                left: 0 !important;
+                right: 0 !important;
+                margin: 0 auto !important;
+                transform: none !important;
                 bottom: 2rem;
-                margin-left: 0;
             }
         }
     </style>
